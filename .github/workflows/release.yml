@@ -28,12 +28,11 @@ jobs:
           echo ${GITHUB_REF}
           if [[ $GITHUB_REF =~ refs\/tags\/v ]]; then
             VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///') make compile
-            cd build
-            ls
           else
             echo "Not a tag"
             exit 0
           fi
+          echo '::set-env name=VERSION::${VERSION}'
       - name: Create release
         id: create-release
         uses: actions/create-release@v1
@@ -52,6 +51,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./build/service_${{ github.ref }}_darwin-amd64
-          asset_name: service_${{ github.ref }}_darwin-amd64
+          asset_path: ./build/service_${{ VERSION }}_darwin-amd64
+          asset_name: service_${{ VERSION }}_darwin-amd64
           asset_content_type: application/octet-stream
