@@ -20,7 +20,8 @@ jobs:
         run: go test ./...
       - name: Compile
         run: |
-          #!/bin/bash
+          bash
+          echo ${SHELL}
           echo ${GITHUB_REF}
           if [[ $GITHUB_REF =~ refs\/tags\/v ]]; then
             version=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
