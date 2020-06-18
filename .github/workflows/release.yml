@@ -49,7 +49,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: $VERSION
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
           asset_path: ./build/service_${{ env.VERSION }}_darwin-amd64
