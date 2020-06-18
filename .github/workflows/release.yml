@@ -49,8 +49,9 @@ jobs:
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: $VERSION
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./build/service_${VERSION}_darwin-amd64
-          asset_name: service_${VERSION}_darwin-amd64
+          asset_path: ./build/service_${{ env.VERSION }}_darwin-amd64
+          asset_name: service_${{ env.VERSION }}_darwin-amd64
           asset_content_type: application/octet-stream
