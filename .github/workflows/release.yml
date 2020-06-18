@@ -4,7 +4,7 @@ on: [create]
 
 jobs:
   build:
-    name: Build ${GITHUB_REF}
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +20,7 @@ jobs:
         run: go test ./...
       - name: Compile
         run: |
+          #!/bin/bash
           echo ${GITHUB_REF}
           if [[ $GITHUB_REF =~ refs\/tags\/v ]]; then
             version=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
