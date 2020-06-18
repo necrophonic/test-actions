@@ -29,3 +29,8 @@ jobs:
             echo "Not a tag"
             exit 0
           fi
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build/*
