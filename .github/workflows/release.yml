@@ -4,7 +4,7 @@ on: [create]
 
 jobs:
   build:
-    name: Build
+    name: Build ${{GITHUB_REF}}
     runs-on: ubuntu-latest
 
     steps:
@@ -18,12 +18,15 @@ jobs:
           go-version: 1.14
       - name: Run tests
         run: go test ./...
-      - name: Echo
+      - name: Compile
         run: |
           echo ${GITHUB_REF}
           if [[ $GITHUB_REF =~ refs\/tags\/v ]]; then
             version=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
             echo "Bare tag version: ${version}"
+            VERSION=${version} make compile
+            cd build
+            ls
           else
             echo "Not a tag"
             exit 0
