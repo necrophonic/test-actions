@@ -22,9 +22,7 @@ jobs:
         run: |
           echo ${GITHUB_REF}
           if [[ $GITHUB_REF =~ refs\/tags\/v ]]; then
-            version=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
-            echo "Bare tag version: ${version}"
-            SHELL=/bin/bash VERSION=${version} make compile
+            VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///') make compile
             cd build
             ls
           else

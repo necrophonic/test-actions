@@ -5,7 +5,7 @@ binary = build/service
 help:
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-compile: clean ## Build binaries for all platforms defined in $PLATFORMS
+compile: SHELL:=/bin/bash clean ## Build binaries for all platforms defined in $PLATFORMS
 ifndef VERSION
 		@ echo "Must supply VERSION (VERSION=<version> make compile)"
 		@ exit
