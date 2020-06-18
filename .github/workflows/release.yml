@@ -19,4 +19,12 @@ jobs:
       - name: Run tests
         run: go test ./...
       - name: Echo
-        run: echo ${GITHUB_REF}
+        run: |
+          echo ${GITHUB_REF}
+          if [[ $GITHUB_REF =~ refs\/tags\/v ]]; then
+            version=$(echo $GITHUB_REF | sed 's/refs\/tags\/')
+            echo "Bare tag version: ${version}"
+          else
+            echo "Not a tag"
+            exit 0
+          fi
