@@ -22,7 +22,7 @@ jobs:
         run: |
           echo ${GITHUB_REF}
           if [[ $GITHUB_REF =~ refs\/tags\/v ]]; then
-            version=$(echo $GITHUB_REF | sed 's/refs\/tags\/')
+            version=$(echo $GITHUB_REF | sed 's/refs\/tags\//')
             echo "Bare tag version: ${version}"
           else
             echo "Not a tag"
