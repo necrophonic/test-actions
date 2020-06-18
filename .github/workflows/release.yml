@@ -46,7 +46,7 @@ jobs:
             Need to get this from changelog
           draft: false
           prerelease: false
-      - name: Upload release assets
+      - name: Upload darwin asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,4 +54,22 @@ jobs:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
           asset_path: ./build/service_${{ env.VERSION }}_darwin-amd64
           asset_name: service_${{ env.VERSION }}_darwin-amd64
+          asset_content_type: application/octet-stream
+      - name: Upload windows asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./build/service_${{ env.VERSION }}_windows-amd64
+          asset_name: service_${{ env.VERSION }}_windows-amd64
+          asset_content_type: application/octet-stream
+      - name: Upload linux asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./build/service_${{ env.VERSION }}_linux-amd64
+          asset_name: service_${{ env.VERSION }}_linux-amd64
           asset_content_type: application/octet-stream
