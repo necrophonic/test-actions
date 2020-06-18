@@ -52,4 +52,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./build/*
+          asset_path: ./build/service_${{ github.ref }}_darwin-amd64
+          asset_name: service_${{ github.ref }}_darwin-amd64
