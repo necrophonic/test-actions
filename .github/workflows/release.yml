@@ -1,6 +1,9 @@
 name: Publish new release
 
-on: [create]
+on:
+  create:
+    tags:
+      - "v*"
 
 jobs:
   build:
@@ -19,6 +22,8 @@ jobs:
       - name: Run tests
         run: go test ./...
       - name: Compile
+        env:
+          REF: ${{ github.ref }}
         run: |
           echo ${GITHUB_REF}
           if [[ $GITHUB_REF =~ refs\/tags\/v ]]; then
@@ -29,8 +34,22 @@ jobs:
             echo "Not a tag"
             exit 0
           fi
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
+      - name: Create release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: build
-          path: build/*
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: |
+            Need to get this from changelog
+          draft: false
+          prerelease: false
+      - name: Upload release assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./build/*
