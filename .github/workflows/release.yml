@@ -27,12 +27,13 @@ jobs:
         run: |
           echo ${GITHUB_REF}
           if [[ $GITHUB_REF =~ refs\/tags\/v ]]; then
-            VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///') make compile
+            VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
+            VERSION=${VERSION} make compile
+            echo "::set-env name=VERSION::${VERSION}"
           else
             echo "Not a tag"
             exit 0
           fi
-          echo '::set-env name=VERSION::${VERSION}'
       - name: Create release
         id: create-release
         uses: actions/create-release@v1
