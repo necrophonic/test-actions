@@ -54,3 +54,4 @@ jobs:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
           asset_path: ./build/service_${{ github.ref }}_darwin-amd64
           asset_name: service_${{ github.ref }}_darwin-amd64
+          assert_content_type: application/octet-stream
